@@ -1,0 +1,20 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: true #是否向注册中心注册
+    fetch-registry: true # 是否从注册中心拉取服务地址
+    service-url:
+      defaultZone: http://localhost:7001/eureka/ #注册中心地址
+spring:
+  application:
+    name: cloud-consumer-order-feign
+ribbon:
+  ReadTimeout:  5000
+  ConnectTimeout: 5000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+logging:
+  level:
+    com.atguigu.springcloud.feign.PaymentFeignClient: debug

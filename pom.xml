@@ -13,6 +13,8 @@
         <module>cloud-consumer-order</module>
         <module>cloud-api-commons</module>
         <module>cloud-eureka-server</module>
+        <module>cloud-consumer-feign-order</module>
+        <module>cloud-api-fegin</module>
     </modules>
 
     <properties>
