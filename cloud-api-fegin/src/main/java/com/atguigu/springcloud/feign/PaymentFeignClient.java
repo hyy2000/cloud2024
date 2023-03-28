@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "CLOUD-PAYMENT-SERVICE")
 public interface PaymentFeignClient {
     @GetMapping("/payment/get/{id}")
-    public abstract CommonResult<Payment> getPaymentById(@PathVariable("id") Long id);
+    CommonResult<Payment> getPaymentById(@PathVariable("id") Long id);
     //在普通类上定义@PatnVariable注解时value值可以不用声明，但是在Feign接口下使用该注解，则需要声明value
 
     @GetMapping("/payment/feign/timeout")
-    public String paymentFeignTimeout();
+    String paymentFeignTimeout();
 }
