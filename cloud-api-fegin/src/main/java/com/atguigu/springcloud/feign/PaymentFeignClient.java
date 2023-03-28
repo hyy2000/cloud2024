@@ -15,4 +15,6 @@ public interface PaymentFeignClient {
 
     @GetMapping("/payment/feign/timeout")
     String paymentFeignTimeout();
+    @GetMapping("/payment/hystrix/timeout/{id}")
+    public String paymentInfo_TimeOut(@PathVariable("id") Integer id);
 }

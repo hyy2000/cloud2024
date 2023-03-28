@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.yiyuan</groupId>
             <artifactId>cloud-api-fegin</artifactId>
             <version>1.0-SNAPSHOT</version>
