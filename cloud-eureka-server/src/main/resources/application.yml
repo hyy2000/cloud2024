@@ -1,0 +1,11 @@
+server:
+  port: 7001
+eureka:
+  instance:
+    hostname: localhost #当前注册中心的主机名
+  client:
+    fetch-registry: false #是否从注册中心拉取服务信息，如果当前工程是微服务，才需要设置成true，拉取别的服务的地址信息
+    register-with-eureka: false # 是否将自己注册到eureka（server），如果当前工程是eureka-client（服务），该参数设置成true
+    service-url:
+      #      key(地址名称):value（地址值） 声明注册中心的地址，给服务端使用。将来各个服务需要发布到当前这个注册中心，需要指定这个地址
+      defaultZone: http://localhost:7001/eureka/ #注册中心的地址

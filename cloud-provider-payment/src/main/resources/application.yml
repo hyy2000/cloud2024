@@ -1,0 +1,23 @@
+server:
+  port: 8001 #端口号
+
+spring:
+  application:
+    name: cloud-payment-service #自定义的spring应用名，一般写项目名即可。发布服务时，也会使用到该名称，也可以理解成服务名称
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud2023?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+
+
+mybatis:
+  mapperLocations: classpath:/mapper/*.xml #sql映射文件的位置（默认从resources目录下）
+  type-aliases-package: com.atguigu.springcloud.entities #实体类定义别名（批量定义）
+eureka:
+  client:
+    register-with-eureka: true #是否向注册中心注册
+    fetch-registry: true # 是否从注册中心拉取服务地址
+    service-url:
+      defaultZone: http://localhost:7001/eureka/ #注册中心地址
