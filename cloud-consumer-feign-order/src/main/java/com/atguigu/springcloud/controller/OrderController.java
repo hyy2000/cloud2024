@@ -3,6 +3,7 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.feign.PaymentFeignClient;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @Slf4j
+//@DefaultProperties(defaultFallback = "defaultFallBack")
 public class OrderController {
-//    @Autowired
-//    RestTemplate restTemplate;
     @Autowired
     private PaymentFeignClient paymentFeignClient;
 
@@ -35,9 +35,9 @@ public class OrderController {
 
     @HystrixCommand(
             //兜底方案
-            fallbackMethod = "paymentInfo_TimeOutFallBack",
+//            fallbackMethod = "paymentInfo_TimeOutFallBack",
             //name超时参数名，value超时参数值
-            commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "5000")
+            commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
     )
     @GetMapping("/payment/hystrix/timeout/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id) {
@@ -48,6 +48,9 @@ public class OrderController {
     public String paymentInfo_TimeOutFallBack(Integer id){
         //兜底方法的返回值类型，参数必须和目标方法一致
         return "我是消费者兜底方案";
+    }
+    public String defaultFallBack(){
+        return "默认全局兜底方法";
     }
 
 
