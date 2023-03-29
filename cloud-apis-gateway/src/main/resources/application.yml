@@ -1,16 +1,32 @@
 server:
   port: 9527
+#eureka配置
+eureka:
+  instance:
+    hostname: cloud-apis-gateway
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
 spring:
   application:
     name: cloud-apis-gateway
+    #网关配置
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true # # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
       routes:
         - id: cloud-provider-payment
-          uri: http://localhost:8001/
+#          uri: http://localhost:8001/
+          uri: lb://CLOUD-PAYMENT-SERVICE
           predicates:
             - Path=/payment/**
         - id: cloud-consumer-feign-order
-          uri: http://localhost/
+#          uri: http://localhost/
+          uri: lb://CLOUD-CONSUMER-ORDER-FEIGN
           predicates:
             - Path=/consumer/**
