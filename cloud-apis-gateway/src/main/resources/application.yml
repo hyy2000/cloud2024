@@ -1,0 +1,16 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-apis-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: cloud-provider-payment
+          uri: http://localhost:8001/
+          predicates:
+            - Path=/payment/**
+        - id: cloud-consumer-feign-order
+          uri: http://localhost/
+          predicates:
+            - Path=/consumer/**

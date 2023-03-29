@@ -1,0 +1,5 @@
+server:
+  port: 9001
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*" #指定当前dashboard要显示哪一个服务的数据流
