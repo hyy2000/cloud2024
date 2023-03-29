@@ -23,6 +23,12 @@ public class PaymentController {
     @Value("${server.port}")
     String port;
 
+    //测试基于异常的熔断
+    @GetMapping("/payment/circuit/{id}")
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id){
+        return paymentService.paymentCircuitBreaker(id);
+    }
+
     @GetMapping("/payment/feign/timeout")
     public String paymentFeignTimeout() {
         try {

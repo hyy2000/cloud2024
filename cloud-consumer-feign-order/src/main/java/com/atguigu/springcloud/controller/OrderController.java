@@ -21,6 +21,13 @@ public class OrderController {
     @Autowired
     private PaymentFeignClient paymentFeignClient;
 
+
+    //测试基于异常的熔断
+    @GetMapping("/payment/circuit/{id}")
+    public String paymentCircuitBreaker(@PathVariable("id")Integer id){
+        return paymentFeignClient.paymentCircuitBreaker(id);
+    }
+
     @GetMapping("consumer/payment/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable Long id){
         String url = "http://"+  "CLOUD-PAYMENT-SERVICE"  +"/payment/get/" + id;
@@ -28,10 +35,12 @@ public class OrderController {
 //        return new CommonResult<>(200,"查询成功",commonResult.getData());
     }
 
+
     @GetMapping("/consumer/payment/feign/timeout")
     public String paymentFeignTimeout(){
         return paymentFeignClient.paymentFeignTimeout();
     }
+
 
     @HystrixCommand(
             //兜底方案
@@ -39,12 +48,14 @@ public class OrderController {
             //name超时参数名，value超时参数值
             commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
     )
+
     @GetMapping("/payment/hystrix/timeout/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id) {
         String result = paymentFeignClient.paymentInfo_TimeOut(id);
         log.info("*******result:" + result);
         return result;
     }
+
     public String paymentInfo_TimeOutFallBack(Integer id){
         //兜底方法的返回值类型，参数必须和目标方法一致
         return "我是消费者兜底方案";

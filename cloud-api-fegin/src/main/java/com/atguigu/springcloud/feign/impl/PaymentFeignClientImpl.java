@@ -11,6 +11,11 @@ public class PaymentFeignClientImpl implements PaymentFeignClient {
     }
 
     @Override
+    public String paymentCircuitBreaker(Integer id) {
+        return "基于异常的熔断的降级逻辑";
+    }
+
+    @Override
     public String paymentFeignTimeout() {
         return "paymentFeignTimeout的降级逻辑";
     }

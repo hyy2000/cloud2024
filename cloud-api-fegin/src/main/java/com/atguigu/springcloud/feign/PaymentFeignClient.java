@@ -18,4 +18,8 @@ public interface PaymentFeignClient {
     String paymentFeignTimeout();
     @GetMapping("/payment/hystrix/timeout/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id);
+
+    //测试基于异常的熔断
+    @GetMapping("/payment/circuit/{id}")
+    String paymentCircuitBreaker(@PathVariable("id") Integer id);
 }
