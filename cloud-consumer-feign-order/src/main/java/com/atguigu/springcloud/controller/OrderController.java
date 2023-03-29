@@ -23,7 +23,7 @@ public class OrderController {
 
 
     //测试基于异常的熔断
-    @GetMapping("/payment/circuit/{id}")
+    @GetMapping("consumer/payment/circuit/{id}")
     public String paymentCircuitBreaker(@PathVariable("id")Integer id){
         return paymentFeignClient.paymentCircuitBreaker(id);
     }
@@ -49,7 +49,7 @@ public class OrderController {
             commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
     )
 
-    @GetMapping("/payment/hystrix/timeout/{id}")
+    @GetMapping("consumer/payment/hystrix/timeout/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id) {
         String result = paymentFeignClient.paymentInfo_TimeOut(id);
         log.info("*******result:" + result);
