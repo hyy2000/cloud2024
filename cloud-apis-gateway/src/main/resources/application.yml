@@ -20,13 +20,19 @@ spring:
         locator:
           enabled: true # # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
       routes:
-        - id: cloud-provider-payment
-#          uri: http://localhost:8001/
-          uri: lb://CLOUD-PAYMENT-SERVICE
-          predicates:
-            - Path=/payment/**
         - id: cloud-consumer-feign-order
 #          uri: http://localhost/
           uri: lb://CLOUD-CONSUMER-ORDER-FEIGN
           predicates:
             - Path=/consumer/**
+
+        - id: cloud-provider-payment
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+          filters:
+            - AddRequestHeader=X-Request-red, blue
+            - AddRequestHeader=X-Request-red, red
+      default-filters:
+        - AddRequestHeader=X-Request-red, black
+        - AddRequestParameter=red, parameterTest
